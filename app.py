@@ -1,12 +1,14 @@
 #!/usr/bin/env python
 
-from movies import tmdb
+from movies import tmDB
 from movies import imDB
+from movies import omDB
 
 def main():
 
-	print tmdb.getMovies('goonies')
-	print imDB.getMovies('inception')
+	print tmDB.getMovies('goonies')
+	print imDB.getMovies('goonies')
+	print omDB.getMovies('goonies')
 
 if __name__ == '__main__':
 	main()
