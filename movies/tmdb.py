@@ -11,20 +11,24 @@ set_key(apiKeys['tmdb'])
 set_cache('null')
 set_locale('en', 'gb')
 
-# cast, crew, getSimilar, Lists
-# mostpopular, nowplaying
-# favorites, ratedmovies
+# TODO (WILL BE LINKS) : cast, crew, smilar, lists, studios, translations
+# MAIN PAGE CONTENT : mostpopular, nowplaying, toprated, upcoming
+# NOT REQUIRED : favorites, ratedmovies, setFavorite, setRating, setWatchlist, watchlist
 
-def getMovieInfoAsJSON(movie):
+def _getMovieInfoAsJSON(movie):
 
 	movieInfo = {}
 
 	# Movie titles
+	movieInfo['title'] = {}
 	movieInfo['title']['main'] = movie.title
-	movieInfo['title']['originale_title'] = movie.originaletitle
-	movieInfo['title']['alternative_titles'] = {}
-	for movieTitles in movie.alternate_titles:
-		movieInfo['title']['alternative_titles'][movieTitles.country] = movieTitles.title
+	movieInfo['title']['originale_title'] = movie.originaltitle
+	movieInfo['title']['alternate_titles'] = []
+	for movieTitle in movie.alternate_titles:
+		title = {}
+		title['country'] = movieTitle.country
+		title['title'] = movieTitle.title
+		movieInfo['title']['alternate_titles'].append(title)
 
 	# Movie Adult
 	movieInfo['is_adult'] = movie.adult
@@ -50,30 +54,50 @@ def getMovieInfoAsJSON(movie):
 	# Movie Revenue
 	movieInfo['revenue'] = movie.revenue
 
+	# Movie Runtime
+	movieInfo['runtime'] = movie.runtime
+
+	# Movie Tagline
+	movieInfo['tagline'] = movie.tagline
+
+	# Movie votes
+	movieInfo['votes'] = movie.votes
+
 	# Movie Release Date
+	movieInfo['release_date'] = {}
 	movieInfo['release_date']['main'] = movie.releasedate.strftime('%s')
 	movieInfo['release_date']['countries'] = {}
-	for country in movies.releases:
+	for country in movie.releases:
 		movieInfo['release_date']['countries'][country] = movie.releases[country].releasedate.strftime('%s')
 
-
 	# Apple Trailers
-	movieInfo['apple_trailers'] = {}
+	movieInfo['trailers'] = {}
+	movieInfo['trailers']['apple'] = []
 	for appleTrailer in movie.apple_trailers:
-		movieInfo['apple_trailers']['name'] = appleTrailer.name
-		movieInfo['apple_trailers']['trailer'] = {}
-		for size in appleTrailer.sizes():
-			movieInfo['apple_trailers']['trailer'][size] = appleTrailer.geturl(size)
+		trailer = {}
+		trailer['name'] = appleTrailer.name
+		trailer['trailers'] = appleTrailer.geturl()
+		movieInfo['trailers']['apple'].append(trailer)
+
+	# Youtube Trailers
+	movieInfo['trailers']['youtube'] = []
+	for youtubeTrailer in movie.youtube_trailers:
+		trailer = {}
+		trailer['name'] = youtubeTrailer.name
+		trailer['trailers'] = youtubeTrailer.geturl()
+		movieInfo['trailers']['youtube'].append(trailer)
 
 	# Images
 	movieInfo['images'] = []
-	movieInfo['images'].append(movie.backdrop.geturl())
+	if movie.backdrop is not None:
+		movieInfo['images'].append(movie.backdrop.geturl())
 	for image in movie.backdrops:
 		movieInfo['images'].append(image.geturl())
 
 	# Posters
 	movieInfo['posters'] = []
-	movieInfo['posters'].append(movie.poster.geturl())
+	if movie.poster is not None:
+		movieInfo['posters'].append(movie.poster.geturl())
 	for poster in movie.posters:
 		movieInfo['posters'].append(poster.geturl())
 
@@ -104,7 +128,7 @@ def getMovies(query):
 	movies = searchMovie(query)
 	movieInfo = []
 	for movie in movies:
-		movieInfo.append(getMovieInfoAsJSON(movie))
+		movieInfo.append(_getMovieInfoAsJSON(movie))
 
-	return {'query' : query, 'domain' : 'tmdb', 'movies' : movies}
+	return {'query' : query, 'domain' : 'tmdb', 'movies' : movieInfo}
 
