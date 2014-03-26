@@ -11,9 +11,22 @@ set_key(apiKeys['tmdb'])
 set_cache('null')
 set_locale('en', 'gb')
 
-# TODO (WILL BE LINKS) : cast, crew, smilar, lists, studios, translations
-# MAIN PAGE CONTENT : mostpopular, nowplaying, toprated, upcoming
 # NOT REQUIRED : favorites, ratedmovies, setFavorite, setRating, setWatchlist, watchlist
+
+def _getCastInfoAsJSON(cast):
+	pass
+
+def _getCrewInfoAsJSON(crew):
+	pass
+
+def _getStudioInfoAsJSON(studio):
+	pass
+
+def _getMovieListInfoAsJSON(movieList):
+	pass
+
+def _getSimilarMovieListAsJSON(movie):
+	pass
 
 def _getMovieInfoAsJSON(movie):
 
@@ -121,6 +134,11 @@ def _getMovieInfoAsJSON(movie):
 	for language in movie.languages:
 		movieInfo['languages'].append({'code' : language.code, 'name' : language.name})
 
+	# Available Translations
+	movieInfo['translations'] = []
+	for translation in movie.translations:
+		movieInfo['translations'].append({'language' : translation.language, 'name' : translation.englishname})
+
 	return movieInfo
 
 def getMovies(query):
@@ -132,3 +150,14 @@ def getMovies(query):
 
 	return {'query' : query, 'domain' : 'tmdb', 'movies' : movieInfo}
 
+def getMostPopularMovies():
+	pass
+
+def getNowPlayingMovies():
+	pass
+
+def getTopRatedMovies():
+	pass
+
+def getUpcomingMovies():
+	pass
