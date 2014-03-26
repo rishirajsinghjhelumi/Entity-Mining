@@ -2,10 +2,10 @@
 
 from config import apiKeys
 
-from tmdb3 import set_key
-from tmdb3 import set_cache
-from tmdb3 import set_locale
-from tmdb3 import searchMovie
+from lib.tmdb3 import set_key
+from lib.tmdb3 import set_cache
+from lib.tmdb3 import set_locale
+from lib.tmdb3 import searchMovie
 
 set_key(apiKeys['tmdb'])
 set_cache('null')
