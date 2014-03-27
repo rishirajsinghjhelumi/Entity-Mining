@@ -181,10 +181,20 @@ def getMinimalistMovieInfo(movie):
 	movieInfo = {}
 	movieInfo['id_tmdb'] = movie.id
 	movieInfo['title'] = movie.title
-	movieInfo['release_date'] = movie.releasedate
+	movieInfo['release_date'] = movie.releasedate if movie.releasedate is not None else None
 	movieInfo['image'] = movie.poster.geturl() if movie.poster is not None else None
 
 	return movieInfo
+
+def getMinimalistPersonInfo(person):
+
+	personInfo = {}
+	personInfo['id_tmdb'] = person.id
+	personInfo['name'] = person.name
+	personInfo['biography'] = person.biography
+	personInfo['image'] = person.profile.geturl() if person.profile is not None else None
+
+	return personInfo
 
 def getMovies(query):
 
