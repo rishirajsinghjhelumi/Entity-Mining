@@ -58,7 +58,20 @@ def getPersonInfo(person):
 
 
 def getStudioInfo(studio):
-	pass
+
+	studioInfo = {}
+	studioInfo['id_tmdb'] = studio.id
+	studioInfo['name'] = studio.name
+	studioInfo['headquarters'] = studio.headquarters
+	studioInfo['parent_studio'] = studio.parent
+	studioInfo['description'] = studio.description
+	studioInfo['image'] = studio.logo.geturl() if studio.logo is not None else None
+
+	studioInfo['movies'] = []
+	for movie in studio.movies:
+		studioInfo['movies'].append(getMinimalistMovieInfo(movie))
+
+	return studioInfo
 
 def getMovieListInfo(movieList):
 	
@@ -202,6 +215,17 @@ def getMovieInfo(movie):
 		_crew['department'] = crew.department
 		_crew.update(getMinimalistPersonInfo(crew))
 		movieInfo['crew'].append(_crew)
+
+	# Movie Lists
+	movieInfo['lists'] = []
+	for movieList in movie.lists:
+		movieInfo['lists'].append(getMinimalistMovieListInfo(movieList))
+
+	# Movie Studios
+	movieInfo['studios'] = []
+	for studio in movie.studios:
+		movieInfo['studios'].append(getMinimalistStudioInfo(studio))
+
 	return movieInfo
 
 def getMinimalistMovieInfo(movie):
@@ -228,9 +252,20 @@ def getMinimalistMovieListInfo(movieList):
 	listInfo = {}
 	listInfo['id_tmdb'] = movieList.id
 	listInfo['name'] = movieList.name
+	listInfo['count'] = movieList.count
+	listInfo['description'] = movieList.description
 	listInfo['image'] = movieList.poster.geturl() if movieList.poster is not None else None
 
 	return listInfo
+
+def getMinimalistStudioInfo(studio):
+
+	studioInfo = {}
+	studioInfo['id_tmdb'] = studio.id
+	studioInfo['name'] = studio.name
+	studioInfo['image'] = studio.logo.geturl() if studio.logo is not None else None
+
+	return studioInfo
 
 def getMovies(query):
 
