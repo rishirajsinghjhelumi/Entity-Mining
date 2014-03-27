@@ -15,7 +15,38 @@ set_locale('en', 'gb')
 # NOT REQUIRED : favorites, ratedmovies, setFavorite, setRating, setWatchlist, watchlist
 
 def _getCastInfoAsJSON(cast):
-	pass
+	
+	castInfo = {}
+
+	castInfo['name'] = cast.name
+	castInfo['adult'] = cast.adult
+	castInfo['biography'] = cast.biography
+
+	castInfo['aliases'] = []
+	for alias in cast.aliases:
+		castInfo['aliases'].append(alias)
+
+	castInfo['birthplace'] = cast.birthplace
+	castInfo['birthdate'] = cast.dayofbirth.strftime('%s')
+	castInfo['deathdate'] = cast.dayofdeath.strftime('%s')
+	castInfo['homepage'] = cast.homepage
+	castInfo['id_tmdb'] = cast.id
+
+	castInfo['images'] = []
+	if cast.profile is not None:
+		castInfo['images'].append(cast.profile.geturl())
+	for profile in cast.profiles:
+		castInfo['images'].append(profile.geturl())
+
+	# Reverse Cast Person
+
+	# Reverse Crew Person
+
+	# Cast In Movie
+	castInfo['character'] = cast.character
+	castInfo['order'] = cast.order
+
+	return castInfo
 
 def _getCrewInfoAsJSON(crew):
 	pass
@@ -42,7 +73,7 @@ def _getMovieInfoAsJSON(movie):
 		movieInfo['title']['alternate_titles'].append(title)
 
 	# Movie Adult
-	movieInfo['is_adult'] = movie.adult
+	movieInfo['adult'] = movie.adult
 
 	# Movie Budget
 	movieInfo['budget'] = movie.budget
