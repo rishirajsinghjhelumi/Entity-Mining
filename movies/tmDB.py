@@ -172,7 +172,6 @@ def _getMinimalistMovieInfo(movie):
 
 	movieInfo = {}
 	movieInfo['id_tmdb'] = movie.id
-	movieInfo['id_imdb'] = movie.imdb
 	movieInfo['title'] = movie.title
 	movieInfo['release_date'] = movie.releasedate.strftime('%s')
 	if movie.poster is not None:
@@ -204,7 +203,6 @@ def getNowPlayingMovies(limit = 10, offset = 0):
 	movies = Movie.nowplaying()[offset : offset + limit]
 	movieInfo = []
 	for movie in movies:
-		print movie.title
 		movieInfo.append(_getMinimalistMovieInfo(movie))
 
 	return {'now_playing' : movieInfo}
