@@ -61,7 +61,19 @@ def getStudioInfo(studio):
 	pass
 
 def getMovieListInfo(movieList):
-	pass
+	
+	listInfo = {}
+	listInfo['id_tmdb'] = movieList.id
+	listInfo['name'] = movieList.name
+	listInfo['count'] = movieList.count
+	listInfo['description'] = movieList.description
+	listInfo['image'] = movieList.poster.geturl() if movieList.poster is not None else None
+
+	listInfo['movies'] = []
+	for movie in movieList.members:
+		listInfo['movies'].append(getMinimalistMovieInfo(movie))
+
+	return listInfo
 
 def getMovieInfo(movie):
 
@@ -210,6 +222,15 @@ def getMinimalistPersonInfo(person):
 	personInfo['image'] = person.profile.geturl() if person.profile is not None else None
 
 	return personInfo
+
+def getMinimalistMovieListInfo(movieList):
+
+	listInfo = {}
+	listInfo['id_tmdb'] = movieList.id
+	listInfo['name'] = movieList.name
+	listInfo['image'] = movieList.poster.geturl() if movieList.poster is not None else None
+
+	return listInfo
 
 def getMovies(query):
 
