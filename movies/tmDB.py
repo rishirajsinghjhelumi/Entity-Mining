@@ -12,8 +12,6 @@ set_key(apiKeys['tmdb'])
 set_cache('null')
 set_locale('en', 'gb')
 
-# NOT REQUIRED : favorites, ratedmovies, setFavorite, setRating, setWatchlist, watchlist
-
 def _getCastInfoAsJSON(cast):
 	
 	castInfo = {}
@@ -170,12 +168,24 @@ def _getMovieInfoAsJSON(movie):
 
 	return movieInfo
 
+def _getMinimalistMovieInfo(movie):
+
+	movieInfo = {}
+	movieInfo['id_tmdb'] = movie.id
+	movieInfo['id_imdb'] = movie.imdb
+	movieInfo['title'] = movie.title
+	movieInfo['release_date'] = movie.releasedate.strftime('%s')
+	if movie.poster is not None:
+		movieInfo['image'] = movie.poster.geturl()
+
+	return movieInfo
+
 def getMovies(query):
 
 	movies = searchMovie(query)
 	movieInfo = []
 	for movie in movies:
-		movieInfo.append(_getMovieInfoAsJSON(movie))
+		movieInfo.append(_getMinimalistMovieInfo(movie))
 
 	return {'query' : query, 'domain' : 'tmdb', 'movies' : movieInfo}
 
@@ -184,7 +194,7 @@ def getMostPopularMovies(limit = 10, offset = 0):
 	movies = Movie.mostpopular()[offset : offset + limit]
 	movieInfo = []
 	for movie in movies:
-		movieInfo.append(_getMovieInfoAsJSON(movie))
+		movieInfo.append(_getMinimalistMovieInfo(movie))
 
 	return {'most_popular' : movieInfo}
 
@@ -194,7 +204,8 @@ def getNowPlayingMovies(limit = 10, offset = 0):
 	movies = Movie.nowplaying()[offset : offset + limit]
 	movieInfo = []
 	for movie in movies:
-		movieInfo.append(_getMovieInfoAsJSON(movie))
+		print movie.title
+		movieInfo.append(_getMinimalistMovieInfo(movie))
 
 	return {'now_playing' : movieInfo}
 
@@ -203,7 +214,7 @@ def getTopRatedMovies(limit = 10, offset = 0):
 	movies = Movie.toprated()[offset : offset + limit]
 	movieInfo = []
 	for movie in movies:
-		movieInfo.append(_getMovieInfoAsJSON(movie))
+		movieInfo.append(_getMinimalistMovieInfo(movie))
 
 	return {'top_rated' : movieInfo}
 
@@ -213,7 +224,7 @@ def getUpcomingMovies(limit = 10, offset = 0):
 	movies = Movie.upcoming()[offset : offset + limit]
 	movieInfo = []
 	for movie in movies:
-		movieInfo.append(_getMovieInfoAsJSON(movie))
+		movieInfo.append(_getMinimalistMovieInfo(movie))
 
 	return {'upcoming' : movieInfo}
 
@@ -222,6 +233,6 @@ def getSimilarMovies(movie, limit = 10, offset = 0):
 	similarMovies = movie.similar[offset : offset + limit]
 	moviesInfo = []
 	for movie in similarMovies:
-		movieInfo.append(_getMovieInfoAsJSON(movie))
+		movieInfo.append(_getMinimalistMovieInfo(movie))
 
 	return {'similar' : movieInfo}
