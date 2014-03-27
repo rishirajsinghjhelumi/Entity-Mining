@@ -174,6 +174,22 @@ def getMovieInfo(movie):
 	for translation in movie.translations:
 		movieInfo['translations'].append({'language' : translation.language, 'name' : translation.englishname})
 
+	# Movie Cast
+	movieInfo['cast'] = []
+	for cast in movie.cast:
+		_cast = {} 
+		_cast['character'] = cast.character
+		_cast.update(getMinimalistPersonInfo(cast))
+		movieInfo['cast'].append(_cast)
+
+	# Movie Crew
+	movieInfo['crew'] = []
+	for crew in movie.crew:
+		_crew = {}
+		_crew['job'] = crew.job
+		_crew['department'] = crew.department
+		_crew.update(getMinimalistPersonInfo(crew))
+		movieInfo['crew'].append(_crew)
 	return movieInfo
 
 def getMinimalistMovieInfo(movie):
@@ -191,7 +207,6 @@ def getMinimalistPersonInfo(person):
 	personInfo = {}
 	personInfo['id_tmdb'] = person.id
 	personInfo['name'] = person.name
-	personInfo['biography'] = person.biography
 	personInfo['image'] = person.profile.geturl() if person.profile is not None else None
 
 	return personInfo
