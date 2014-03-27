@@ -5,57 +5,65 @@ from config import apiKeys
 from tmdb3 import set_key
 from tmdb3 import set_cache
 from tmdb3 import set_locale
-from tmdb3 import searchMovie
-from tmdb3 import Movie
+from tmdb3 import searchMovie, searchPerson, searchSeries
+from tmdb3 import Movie, Person, Collection, Studio, Series, Season, Episode
 
 set_key(apiKeys['tmdb'])
 set_cache('null')
 set_locale('en', 'gb')
 
-def _getCastInfoAsJSON(cast):
+def getPersonInfo(person):
 	
-	castInfo = {}
+	personInfo = {}
 
-	castInfo['name'] = cast.name
-	castInfo['adult'] = cast.adult
-	castInfo['biography'] = cast.biography
+	personInfo['name'] = person.name
+	personInfo['adult'] = person.adult
+	personInfo['biography'] = person.biography
 
-	castInfo['aliases'] = []
-	for alias in cast.aliases:
-		castInfo['aliases'].append(alias)
+	personInfo['aliases'] = []
+	for alias in person.aliases:
+		personInfo['aliases'].append(alias)
 
-	castInfo['birthplace'] = cast.birthplace
-	castInfo['birthdate'] = cast.dayofbirth.strftime('%s')
-	castInfo['deathdate'] = cast.dayofdeath.strftime('%s')
-	castInfo['homepage'] = cast.homepage
-	castInfo['id_tmdb'] = cast.id
+	personInfo['birthplace'] = person.birthplace
+	personInfo['birthdate'] = person.dayofbirth if person.dayofbirth is not None else None
+	personInfo['deathdate'] = person.dayofdeath if person.dayofdeath is not None else None
 
-	castInfo['images'] = []
-	if cast.profile is not None:
-		castInfo['images'].append(cast.profile.geturl())
-	for profile in cast.profiles:
-		castInfo['images'].append(profile.geturl())
+	personInfo['homepage'] = person.homepage
+	personInfo['id_tmdb'] = person.id
 
-	# Reverse Cast Person
+	personInfo['images'] = []
+	if person.profile is not None:
+		personInfo['images'].append(person.profile.geturl())
+	for profile in person.profiles:
+		personInfo['images'].append(profile.geturl())
 
-	# Reverse Crew Person
+	# Reverse Roles
+	personInfo['roles'] = []
+	for movie in person.roles:
+		role = {}
+		role['character'] = movie.character
+		role['movie'] = getMinimalistMovieInfo(movie)
+		personInfo['roles'].append(role)
 
-	# Cast In Movie
-	castInfo['character'] = cast.character
-	castInfo['order'] = cast.order
+	# Reverse Crew
+	personInfo['crew'] = []
+	for movie in person.crew:
+		crew = {}
+		crew['job'] = movie.job
+		crew['department'] = movie.department
+		crew['movie'] = getMinimalistMovieInfo(movie)
+		personInfo['crew'].append(crew)
 
-	return castInfo
+	return personInfo
 
-def _getCrewInfoAsJSON(crew):
+
+def getStudioInfo(studio):
 	pass
 
-def _getStudioInfoAsJSON(studio):
+def getMovieListInfo(movieList):
 	pass
 
-def _getMovieListInfoAsJSON(movieList):
-	pass
-
-def _getMovieInfoAsJSON(movie):
+def getMovieInfo(movie):
 
 	movieInfo = {}
 
@@ -105,10 +113,10 @@ def _getMovieInfoAsJSON(movie):
 
 	# Movie Release Date
 	movieInfo['release_date'] = {}
-	movieInfo['release_date']['main'] = movie.releasedate.strftime('%s')
+	movieInfo['release_date']['main'] = movie.releasedate
 	movieInfo['release_date']['countries'] = {}
 	for country in movie.releases:
-		movieInfo['release_date']['countries'][country] = movie.releases[country].releasedate.strftime('%s')
+		movieInfo['release_date']['countries'][country] = movie.releases[country].releasedate
 
 	# Apple Trailers
 	movieInfo['trailers'] = {}
@@ -168,14 +176,13 @@ def _getMovieInfoAsJSON(movie):
 
 	return movieInfo
 
-def _getMinimalistMovieInfo(movie):
+def getMinimalistMovieInfo(movie):
 
 	movieInfo = {}
 	movieInfo['id_tmdb'] = movie.id
 	movieInfo['title'] = movie.title
-	movieInfo['release_date'] = movie.releasedate.strftime('%s')
-	if movie.poster is not None:
-		movieInfo['image'] = movie.poster.geturl()
+	movieInfo['release_date'] = movie.releasedate
+	movieInfo['image'] = movie.poster.geturl() if movie.poster is not None else None
 
 	return movieInfo
 
@@ -184,7 +191,7 @@ def getMovies(query):
 	movies = searchMovie(query)
 	movieInfo = []
 	for movie in movies:
-		movieInfo.append(_getMinimalistMovieInfo(movie))
+		movieInfo.append(getMinimalistMovieInfo(movie))
 
 	return {'query' : query, 'domain' : 'tmdb', 'movies' : movieInfo}
 
@@ -193,7 +200,7 @@ def getMostPopularMovies(limit = 10, offset = 0):
 	movies = Movie.mostpopular()[offset : offset + limit]
 	movieInfo = []
 	for movie in movies:
-		movieInfo.append(_getMinimalistMovieInfo(movie))
+		movieInfo.append(getMinimalistMovieInfo(movie))
 
 	return {'most_popular' : movieInfo}
 
@@ -203,7 +210,7 @@ def getNowPlayingMovies(limit = 10, offset = 0):
 	movies = Movie.nowplaying()[offset : offset + limit]
 	movieInfo = []
 	for movie in movies:
-		movieInfo.append(_getMinimalistMovieInfo(movie))
+		movieInfo.append(getMinimalistMovieInfo(movie))
 
 	return {'now_playing' : movieInfo}
 
@@ -212,7 +219,7 @@ def getTopRatedMovies(limit = 10, offset = 0):
 	movies = Movie.toprated()[offset : offset + limit]
 	movieInfo = []
 	for movie in movies:
-		movieInfo.append(_getMinimalistMovieInfo(movie))
+		movieInfo.append(getMinimalistMovieInfo(movie))
 
 	return {'top_rated' : movieInfo}
 
@@ -222,7 +229,7 @@ def getUpcomingMovies(limit = 10, offset = 0):
 	movies = Movie.upcoming()[offset : offset + limit]
 	movieInfo = []
 	for movie in movies:
-		movieInfo.append(_getMinimalistMovieInfo(movie))
+		movieInfo.append(getMinimalistMovieInfo(movie))
 
 	return {'upcoming' : movieInfo}
 
@@ -231,6 +238,6 @@ def getSimilarMovies(movie, limit = 10, offset = 0):
 	similarMovies = movie.similar[offset : offset + limit]
 	moviesInfo = []
 	for movie in similarMovies:
-		movieInfo.append(_getMinimalistMovieInfo(movie))
+		movieInfo.append(getMinimalistMovieInfo(movie))
 
 	return {'similar' : movieInfo}
