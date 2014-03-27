@@ -26,9 +26,6 @@ def _getStudioInfoAsJSON(studio):
 def _getMovieListInfoAsJSON(movieList):
 	pass
 
-def _getSimilarMovieListAsJSON(movie):
-	pass
-
 def _getMovieInfoAsJSON(movie):
 
 	movieInfo = {}
@@ -152,7 +149,7 @@ def getMovies(query):
 	return {'query' : query, 'domain' : 'tmdb', 'movies' : movieInfo}
 
 def getMostPopularMovies(limit = 10, offset = 0):
-	
+
 	movies = Movie.mostpopular()[offset : offset + limit]
 	movieInfo = []
 	for movie in movies:
@@ -162,7 +159,7 @@ def getMostPopularMovies(limit = 10, offset = 0):
 
 
 def getNowPlayingMovies(limit = 10, offset = 0):
-	
+
 	movies = Movie.nowplaying()[offset : offset + limit]
 	movieInfo = []
 	for movie in movies:
@@ -171,7 +168,7 @@ def getNowPlayingMovies(limit = 10, offset = 0):
 	return {'now_playing' : movieInfo}
 
 def getTopRatedMovies(limit = 10, offset = 0):
-	
+
 	movies = Movie.toprated()[offset : offset + limit]
 	movieInfo = []
 	for movie in movies:
@@ -189,3 +186,11 @@ def getUpcomingMovies(limit = 10, offset = 0):
 
 	return {'upcoming' : movieInfo}
 
+def getSimilarMovies(movie, limit = 10, offset = 0):
+
+	similarMovies = movie.similar[offset : offset + limit]
+	moviesInfo = []
+	for movie in similarMovies:
+		movieInfo.append(_getMovieInfoAsJSON(movie))
+
+	return {'similar' : movieInfo}
