@@ -393,7 +393,7 @@ class Trailer(Element):
 
 class YoutubeTrailer(Trailer):
     def geturl(self):
-        return "http://www.youtube.com/watch?v={0}".format(self.source)
+        return "http://www.youtube.com/watch?v={0}".format(self.source.encode('ascii','ignore'))
 
     def __repr__(self):
         # modified BASE64 encoding, no need to worry about unicode

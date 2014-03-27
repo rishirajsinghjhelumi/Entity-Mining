@@ -6,6 +6,7 @@ from tmdb3 import set_key
 from tmdb3 import set_cache
 from tmdb3 import set_locale
 from tmdb3 import searchMovie
+from tmdb3 import Movie
 
 set_key(apiKeys['tmdb'])
 set_cache('null')
@@ -150,14 +151,41 @@ def getMovies(query):
 
 	return {'query' : query, 'domain' : 'tmdb', 'movies' : movieInfo}
 
-def getMostPopularMovies():
-	pass
+def getMostPopularMovies(limit = 10, offset = 0):
+	
+	movies = Movie.mostpopular()[offset : offset + limit]
+	movieInfo = []
+	for movie in movies:
+		movieInfo.append(_getMovieInfoAsJSON(movie))
 
-def getNowPlayingMovies():
-	pass
+	return {'most_popular' : movieInfo}
 
-def getTopRatedMovies():
-	pass
 
-def getUpcomingMovies():
-	pass
+def getNowPlayingMovies(limit = 10, offset = 0):
+	
+	movies = Movie.nowplaying()[offset : offset + limit]
+	movieInfo = []
+	for movie in movies:
+		movieInfo.append(_getMovieInfoAsJSON(movie))
+
+	return {'now_playing' : movieInfo}
+
+def getTopRatedMovies(limit = 10, offset = 0):
+	
+	movies = Movie.toprated()[offset : offset + limit]
+	movieInfo = []
+	for movie in movies:
+		movieInfo.append(_getMovieInfoAsJSON(movie))
+
+	return {'top_rated' : movieInfo}
+
+
+def getUpcomingMovies(limit = 10, offset = 0):
+
+	movies = Movie.upcoming()[offset : offset + limit]
+	movieInfo = []
+	for movie in movies:
+		movieInfo.append(_getMovieInfoAsJSON(movie))
+
+	return {'upcoming' : movieInfo}
+
