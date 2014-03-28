@@ -10,6 +10,17 @@ rt = RT(apiKeys['rotten_tomatoes'])
 _ROTTEN_TOMATOES_LIMIT = 50
 
 @jsonify
+def getMovieInfo(movieId):
+
+	movieInfo = rt.info(movieId)
+	movieInfo.update(rt.info(movieId, 'cast'))
+	movieInfo.update(rt.info(movieId, 'reviews'))
+	movieInfo.update(rt.info(movieId, 'similar'))
+	movieInfo.update(rt.info(movieId, 'clips'))
+
+	return movieInfo
+
+@jsonify
 def getMovies(query, limit = 10, page = 1):
 
 	limit = min(limit, _ROTTEN_TOMATOES_LIMIT)
