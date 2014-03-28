@@ -3,6 +3,6 @@
 import json
 
 def jsonify(func):
-	def JSON(dic):
-		return json.dumps(func(dic))
+	def JSON(*args, **kwargs):
+		return json.dumps(func(*args, **kwargs))
 	return JSON
