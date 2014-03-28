@@ -2,18 +2,19 @@
 
 from config import apiKeys
 
+from util import jsonify
+
 from tmdb3 import set_key
 from tmdb3 import set_cache
 from tmdb3 import set_locale
 from tmdb3 import searchMovie, searchPerson, searchSeries
 from tmdb3 import Movie, Person, Collection, Studio, Series, Season, Episode
 
-import json
-
 set_key(apiKeys['tmdb'])
 set_cache('null')
 set_locale('en', 'gb')
 
+@jsonify
 def getPersonInfo(person):
 	
 	personInfo = {}
@@ -58,7 +59,7 @@ def getPersonInfo(person):
 
 	return personInfo
 
-
+@jsonify
 def getStudioInfo(studio):
 
 	studioInfo = {}
@@ -75,6 +76,7 @@ def getStudioInfo(studio):
 
 	return studioInfo
 
+@jsonify
 def getMovieListInfo(movieList):
 	
 	listInfo = {}
@@ -90,6 +92,7 @@ def getMovieListInfo(movieList):
 
 	return listInfo
 
+@jsonify
 def getMovieInfo(movie):
 
 	movieInfo = {}
@@ -269,6 +272,7 @@ def getMinimalistStudioInfo(studio):
 
 	return studioInfo
 
+@jsonify
 def getMovies(query):
 
 	movies = searchMovie(query)
@@ -278,6 +282,7 @@ def getMovies(query):
 
 	return {'query' : query, 'domain' : 'tmdb', 'movies' : movieInfo}
 
+@jsonify
 def getMostPopularMovies(limit = 10, offset = 0):
 
 	movies = Movie.mostpopular()[offset : offset + limit]
@@ -287,7 +292,7 @@ def getMostPopularMovies(limit = 10, offset = 0):
 
 	return {'most_popular' : movieInfo}
 
-
+@jsonify
 def getNowPlayingMovies(limit = 10, offset = 0):
 
 	movies = Movie.nowplaying()[offset : offset + limit]
@@ -297,6 +302,7 @@ def getNowPlayingMovies(limit = 10, offset = 0):
 
 	return {'now_playing' : movieInfo}
 
+@jsonify
 def getTopRatedMovies(limit = 10, offset = 0):
 
 	movies = Movie.toprated()[offset : offset + limit]
@@ -306,7 +312,7 @@ def getTopRatedMovies(limit = 10, offset = 0):
 
 	return {'top_rated' : movieInfo}
 
-
+@jsonify
 def getUpcomingMovies(limit = 10, offset = 0):
 
 	movies = Movie.upcoming()[offset : offset + limit]
@@ -316,6 +322,7 @@ def getUpcomingMovies(limit = 10, offset = 0):
 
 	return {'upcoming' : movieInfo}
 
+@jsonify
 def getSimilarMovies(movie, limit = 10, offset = 0):
 
 	similarMovies = movie.similar[offset : offset + limit]
