@@ -8,6 +8,8 @@ from tmdb3 import set_locale
 from tmdb3 import searchMovie, searchPerson, searchSeries
 from tmdb3 import Movie, Person, Collection, Studio, Series, Season, Episode
 
+import json
+
 set_key(apiKeys['tmdb'])
 set_cache('null')
 set_locale('en', 'gb')
@@ -25,8 +27,8 @@ def getPersonInfo(person):
 		personInfo['aliases'].append(alias)
 
 	personInfo['birthplace'] = person.birthplace
-	personInfo['birthdate'] = person.dayofbirth if person.dayofbirth is not None else None
-	personInfo['deathdate'] = person.dayofdeath if person.dayofdeath is not None else None
+	personInfo['birthdate'] = str(person.dayofbirth)
+	personInfo['deathdate'] = str(person.dayofdeath)
 
 	personInfo['homepage'] = person.homepage
 	personInfo['id_tmdb'] = person.id
@@ -138,10 +140,10 @@ def getMovieInfo(movie):
 
 	# Movie Release Date
 	movieInfo['release_date'] = {}
-	movieInfo['release_date']['main'] = movie.releasedate
+	movieInfo['release_date']['main'] = str(movie.releasedate)
 	movieInfo['release_date']['countries'] = {}
 	for country in movie.releases:
-		movieInfo['release_date']['countries'][country] = movie.releases[country].releasedate
+		movieInfo['release_date']['countries'][country] = str(movie.releases[country].releasedate)
 
 	# Apple Trailers
 	movieInfo['trailers'] = {}
@@ -233,7 +235,7 @@ def getMinimalistMovieInfo(movie):
 	movieInfo = {}
 	movieInfo['id_tmdb'] = movie.id
 	movieInfo['title'] = movie.title
-	movieInfo['release_date'] = movie.releasedate if movie.releasedate is not None else None
+	movieInfo['release_date'] = str(movie.releasedate)
 	movieInfo['image'] = movie.poster.geturl() if movie.poster is not None else None
 
 	return movieInfo
