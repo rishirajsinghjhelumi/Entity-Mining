@@ -48,6 +48,7 @@ class RT(object):
         self.BASE_URL = BASE_URL
         self.lists_url = BASE_URL + 'lists'
         self.movie_url = BASE_URL + 'movies'
+        self.movie_alias_url = BASE_URL + 'movie_alias'
 
     def _load_json_from_url(self, url):
       """
@@ -125,6 +126,22 @@ class RT(object):
             movie_url.append('/%s' % specific_info)
         end_of_url = ['.json?', urlencode({'apikey': self.api_key})]
         movie_url.extend(end_of_url)
+        data = self._load_json_from_url(''.join(movie_url))
+        return data
+
+    def from_alias(self, alias_id, alias_type = 'imdb'):
+        """
+        Short method to return just Mvoie based on IMDB Id.
+        Return Movie Info Dict.
+
+        >>> RT().from_alias(1291150)
+        """
+
+        if isinstance(alias_id, int):
+            alias_id = str(alias_id)
+        movie_url = [self.movie_alias_url, '.json?']
+        params = [urlencode({'type' : alias_type, 'id' : alias_id, 'apikey': self.api_key})]
+        movie_url.extend(params)
         data = self._load_json_from_url(''.join(movie_url))
         return data
 

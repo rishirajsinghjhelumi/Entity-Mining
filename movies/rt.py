@@ -21,6 +21,12 @@ def getMovieInfo(movieId):
 	return movieInfo
 
 @jsonify
+def getIMDBMovieInfo(imdbId):
+
+	movieInfo = rt.from_alias(imdbId)
+	return movieInfo
+
+@jsonify
 def getMovies(query, limit = 10, page = 1):
 
 	limit = min(limit, _ROTTEN_TOMATOES_LIMIT)
