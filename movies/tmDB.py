@@ -99,15 +99,15 @@ def getCollectionInfo(collection):
 	collectionInfo['name'] = collection.name
 	collectionInfo['id_tmdb'] = collection.id
 	collectionInfo['overview'] = collection.overview
-	collectionInfo['image'] = []
+	collectionInfo['images'] = []
 	if collection.poster is not None:
-		collectionInfo['image'].append(collection.poster.geturl())
+		collectionInfo['images'].append(collection.poster.geturl())
 	for poster in collection.posters:
-		collectionInfo['image'].append(poster.geturl())
+		collectionInfo['images'].append(poster.geturl())
 	if collection.backdrop is not None:
-		collectionInfo['image'].append(collection.backdrop.geturl())
+		collectionInfo['images'].append(collection.backdrop.geturl())
 	for backdrop in collection.backdrops:
-		collectionInfo['image'].append(backdrop.geturl())
+		collectionInfo['images'].append(backdrop.geturl())
 
 	collectionInfo['movies'] = []
 	for movie in collection.members:
