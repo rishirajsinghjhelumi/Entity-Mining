@@ -93,6 +93,29 @@ def getMovieListInfo(movieList):
 	return listInfo
 
 @jsonify
+def getCollectionInfo(collection):
+
+	collectionInfo = {}
+	collectionInfo['name'] = collection.name
+	collectionInfo['id_tmdb'] = collection.id
+	collectionInfo['overview'] = collection.overview
+	collectionInfo['image'] = []
+	if collection.poster is not None:
+		collectionInfo['image'].append(collection.poster.geturl())
+	for poster in collection.posters:
+		collectionInfo['image'].append(poster.geturl())
+	if collection.backdrop is not None:
+		collectionInfo['image'].append(collection.backdrop.geturl())
+	for backdrop in collection.backdrops:
+		collectionInfo['image'].append(backdrop.geturl())
+
+	collectionInfo['movies'] = []
+	for movie in collection.members:
+		collectionInfo['movies'].append(getMinimalistMovieInfo(movie))
+
+	return collectionInfo
+
+@jsonify
 def getMovieInfo(movie):
 
 	movieInfo = {}
