@@ -231,6 +231,10 @@ def getMovieInfo(movie):
 	for studio in movie.studios:
 		movieInfo['studios'].append(getMinimalistStudioInfo(studio))
 
+	# Movie Collection
+	if movie.collection:
+		movieInfo['collection'] = getMinimalistCollectionInfo(movie.collection)
+
 	return movieInfo
 
 def getMinimalistMovieInfo(movie):
@@ -271,6 +275,15 @@ def getMinimalistStudioInfo(studio):
 	studioInfo['image'] = studio.logo.geturl() if studio.logo is not None else None
 
 	return studioInfo
+
+def getMinimalistCollectionInfo(collection):
+
+	collectionInfo = {}
+	collectionInfo['name'] = collection.name
+	collectionInfo['id_tmdb'] = collection.id
+	collectionInfo['image'] = collection.poster.geturl() if collection.poster is not None else None
+
+	return collectionInfo
 
 @jsonify
 def getMovies(query):
