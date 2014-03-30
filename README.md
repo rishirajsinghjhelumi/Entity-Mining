@@ -7,9 +7,6 @@ Entity Specific Analytic Mining and Representation.
 Entity : Movie
 ==============
 
-API's Used : 
-==============
-
 * Internet Movie DB (IMDB)
 * The Movie DB (TMDB)
 * Open Movie DB (OMDB)
@@ -17,9 +14,6 @@ API's Used :
 * Subtitle Seeker (Subtitles)
 
 Entity : TV Shows
-=================
-
-API's Used :
 =================
 
 * Internet Movie DB (IMDB)
