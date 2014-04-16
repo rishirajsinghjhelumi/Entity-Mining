@@ -1,6 +1,9 @@
 from app import app
 
-@app.route("/",methods=['GET','POST'])
+import movies.views
+import music.views
+
+@app.route("/",methods=['GET'])
 def indexPage():
 
 	return "Entity Mining Web Application"
