@@ -27,3 +27,23 @@ def moviesTopRated(limit, offset):
 def moviesUpcoming(limit, offset):
 
 	return tmDB.getUpcomingMovies(limit = limit, offset = offset)
+
+@app.route("/dvd/top_rental/<int:limit>",methods=['GET'])
+def dvdsTopRental(limit):
+
+	return rt.getTopRentalDVDs(limit = limit)
+
+@app.route("/dvd/current_released/<int:limit>/<int:page>",methods=['GET'])
+def dvdsCurrentReleased(limit, page):
+
+	return rt.getCurrentReleasedDVDs(limit = limit, page = page)
+
+@app.route("/dvd/new_released/<int:limit>/<int:page>",methods=['GET'])
+def dvdsNewReleased(limit, page):
+
+	return rt.getNewReleasedDVDs(limit = limit, page = page)
+
+@app.route("/dvd/upcoming/<int:limit>/<int:page>",methods=['GET'])
+def dvdsUpcoming(limit, page):
+
+	return rt.getUpcomingDVDs(limit = limit, page = page)
