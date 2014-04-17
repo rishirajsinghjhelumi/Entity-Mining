@@ -28,6 +28,21 @@ def moviesUpcoming(limit, offset):
 
 	return tmDB.getUpcomingMovies(limit = limit, offset = offset)
 
+@app.route("/movies/top_box_office/<int:limit>",methods=['GET'])
+def moviesTopBoxOffice(limit):
+
+	return rt.getTopBoxOfficeMovies(limit = limit)
+
+@app.route("/movies/opening_this_week/<int:limit>",methods=['GET'])
+def moviesOpeningThisWeek(limit):
+
+	return rt.getThisWeekOpeningMovies(limit = limit)
+
+@app.route("/movies/in_theatre/<int:limit>/<int:page>",methods=['GET'])
+def moviesInTheatre(limit, page):
+
+	return rt.getInTheatreMovies(limit = limit, page = page)
+
 @app.route("/dvd/top_rental/<int:limit>",methods=['GET'])
 def dvdsTopRental(limit):
 
@@ -48,9 +63,6 @@ def dvdsUpcoming(limit, page):
 
 	return rt.getUpcomingDVDs(limit = limit, page = page)
 
-
-
-
 @app.route("/movies/tmdb/search/<query>",methods=['GET'])
 def moviesTMDBSearch(query):
 
@@ -60,7 +72,6 @@ def moviesTMDBSearch(query):
 def movieTMDBQuery(movie_id):
 
 	return tmDB.getMovieInfo(Movie(movie_id))
-
 
 @app.route("/movies/rt/search/<query>/<int:limit>/<int:page>",methods=['GET'])
 def moviesRTSearch(query, limit, page):
