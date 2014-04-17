@@ -1,12 +1,14 @@
 from app import app
 
+from flask import render_template
+
 import movies.views
 import music.views
 
 @app.route("/",methods=['GET'])
 def indexPage():
 
-	return "Entity Mining Web Application"
+	return render_template('index.html')
 
 if __name__ == "__main__":
 
