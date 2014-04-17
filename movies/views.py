@@ -47,3 +47,27 @@ def dvdsNewReleased(limit, page):
 def dvdsUpcoming(limit, page):
 
 	return rt.getUpcomingDVDs(limit = limit, page = page)
+
+
+
+
+@app.route("/movies/tmdb/search/<query>",methods=['GET'])
+def moviesTMDBSearch(query):
+
+	return tmDB.getMovies(query)
+
+@app.route("/movies/tmdb/info/<int:movie_id>",methods=['GET'])
+def movieTMDBQuery(movie_id):
+
+	return tmDB.getMovieInfo(Movie(movie_id))
+
+
+@app.route("/movies/rt/search/<query>/<int:limit>/<int:page>",methods=['GET'])
+def moviesRTSearch(query, limit, page):
+
+	return rt.getMovies(query, limit = limit, page = page)
+
+@app.route("/movies/rt/info/<int:movie_id>",methods=['GET'])
+def movieRTQuery(movie_id):
+
+	return rt.getMovieInfo(movie_id)
