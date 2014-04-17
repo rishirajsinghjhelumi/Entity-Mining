@@ -1,0 +1,198 @@
+<!doctype html>
+
+<!--
+
+IMPORTANT INSTRUCTIONS
+
+Do Not Modify Any HTML Tags or Style Sheet Elements
+Do Not create any new DIV tags
+
+The final report should be 2000-3000 words long
+
+Save your HTML file as <Project#>-<Group#>-Project-Title.html
+e.g. 13-31-Mining-Named-Entities.html
+
+
+You can use following tags:-
+> List Elements : ul/ol/li
+> Image : img
+> Content Elements : Span
+> Header Tags : H1, H2, H3, H4
+> Formatting Tags : b, i, u
+> Special Characters : &copy; &quot; etc
+
+To include mathematics, use other tools to create formulae and put the image here
+
+
+
+-->
+
+
+<html lang="en">
+<head>
+    <title> Your Project Name </title>
+    <link href="static/templates/IRE2014styles.css" type="stylesheet" rel="stylesheet">
+</head>
+<body>
+    <div class="ire2014_container">
+    <h2 class="ire2014_h2">Project Name</h2>
+    <h4 class="ire2014_h4">Group Number : ### | Project Number : ### </h4>
+    <div class="ire2014_authors">
+        <div class="ire2014_authorname">
+            Team Member 1 (Roll No 1) <br>
+            email.address@students.iiit.ac.in
+        </div>
+        
+        <div class="ire2014_authorname">
+            Team Member 2 (Roll No 2) <br>
+            email.address@students.iiit.ac.in
+        </div>
+
+        <div class="ire2014_authorname">
+            Team Member 3 (Roll No 3) <br>
+            email.address@students.iiit.ac.in
+        </div>
+
+        <div class="ire2014_authorname">
+            Team Member 4 (Roll No 4) <br>
+            email.address@students.iiit.ac.in
+        </div>
+
+    </div>
+    
+    <div class="ire2014_abstract">
+        Put abstract here. Should contain around one hundred words. <br><br>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </div>
+    
+    <div class="ire2014_report">
+        <h3 class="ire2014_h3">1. Introduction</h3>
+        This is a template for IRE 2014 Major Project Report. If you are viewing it in a browser, please look at the source code for details.
+        <br><br>
+        You can use H3 tags to mark section headers. Remember to use the class <b>ire2014_h3</b>. Each section should be numbered. You may explain
+        the project requirements and scope in this section. Define the problem properly. You may also choose to provide a roadmap of this paper, ie,
+        explain the content of various sections in brief.
+        
+        <h3 class="ire2014_h3">2. Related Work</h3>
+        Sections are not rigid. In related work, you can mention the previous works you followed for reference or which are related to
+        your project. You should include references to the tools and techniques you used as a part of the project. 
+        
+        <h3 class="ire2014_h3">3. Approach</h3>
+        Explain your proposed approach here. Filler Text : We now describe the details of building such a system and summarize other systems built for this task. We define entity linking as matching a textual entity
+        mention, possibly identified by a named entity recognizer, to a KB entry, such as a Wikipedia page that is a canonical entry for that entity. An entity linking query
+        is a request to link a textual entity mention in a given document to an entry in
+        a KB. The system can either return a matching entry or NIL to indicate there is
+        no matching entry. In this work we focus on linking organizations, geo-political
+        entities and persons to a Wikipedia derived KB. While the problem is applicable
+        for any language, in this paper we restriction our attention to matching English
+        names to an English knowledge base.
+        
+        <h4 class="ire2014_h4">3.1. Assumptions</h4>
+        This is a subsection. You can use <b>h4</b> tag for it along with <b>ire2014_h4</b> class. Again, the sections and subsections in this template are not rigid.
+        Feel Free to modify as per requirement. Lists can be included if required :
+        <ul class="ire2014_list">
+            <li>You can Add UL or OL</li>
+            <li>Class to be used is <b>ire2014_list</b></li>
+        </ul>
+        
+        <h4 class="ire2014_h4">3.2. Architecture</h4>
+        <figure class="ire2014_imgright">
+            <img src="sampleImg.jpg" width="400px" height="300px">
+            <figcaption>Caption 2 : Remember to provide captions for each figure </figcaption>
+        </figure>
+        You can add diagrams using img tag. By default all the images would be centered. 
+                    
+        If you wish to put image to the right, you can choose the class <b>ire2014_imgright</b> instead. You can adjust the image size using
+        img tag attributes
+        
+        <h4 class="ire2014_h4">3.3. Theory</h4>
+        Add as many sections and subsections as you wish. Random Text.
+        What remains is to determine how high a score indicates that two records truly
+        represent the same individual. In the example at hand, there was an easy
+        way to make that decision, and the technique can be applied in many similar
+        situations. It was decided to look at the creation-dates for the records at hand,
+        and to assume that 90 days was an absolute maximum delay between the time
+        the service was bought at Company A and registered at B. Thus, a proposed
+        match between two records that were chosen at random, subject only to the
+        constraint that the date on the B-record was between 0 and 90 days after the
+        date on the A-record, would have an average delay of 45 days.<br><br>
+        It was found that of the pairs with a perfect 300 score, the average delay was
+        10 days. If you assume that 300-score pairs are surely correct matches, then you
+        can look at the pool of pairs with any given score s, and compute the average
+        delay of those pairs. Suppose that the average delay is x, and the fraction of
+        true matches among those pairs with score s is f. Then x = 10f + 45(1 ? f),
+        or x = 45?35f. Solving for f, we find that the fraction of the pairs with score
+        s that are truly matches is (45 ? x)/35.
+        
+        <h3 class="ire2014_h3">4. Evaluation and Results</h3>
+        You may add/remove sections according to your content. There's no restriction to that.
+        <br><br>
+        IMPORTANT <br>
+        <br>
+        Do Not Modify Any HTML Tags or Style Sheet Elements<br>
+        Do Not create any new DIV tags<br>
+        <br>
+        The final report should be 2000-3000 words long<br>
+        <br>
+        
+        You can use following tags:-<br>
+        > List Elements : ul/ol/li<br>
+        > Image : img<br>
+        > Content Elements : Span<br>
+        > Header Tags : H1, H2, H3, H4<br>
+        > Formatting Tags : b, i, u<br>
+        > Special Characters : &copy; &quot; etc<br>
+        <br>
+        To include mathematics, use other tools to create formulae and put the image here<br>
+        <br>
+            
+        <h4 class="ire2014_h4">Supported Style Classes:</h4>
+        <h4>Heading</h4>
+        ire2014_h2, ire2014_h3, ire2014_h4
+        <h4>Author Names</h4>
+        ire2014_authors (for author pane), ire2014_authorname
+        <h4>Major Sections</h4>
+        ire2014_abstract, ire2014_report (complete report body), ire2014_list, ire2014_resources, ire2014_ref, ire2014_ref li
+        <h4>Images</h4>
+        ire2014_img, ire2014_imgright
+
+        
+        <h3 class="ire2014_h3">5. Conclusion</h3>
+        Our initial experiments suggest that sparse Bayesian logistic regression coupled with
+        high-dimensional document representations shows considerable promise as a tool for
+        authorship attribution. However, significant challenges concerning representation
+        remain; different document representations can lead to different attributions and
+        no clear method exists for accounting for this uncertainty
+        
+        
+        <div class="ire2014_ref">
+            <h3 class="ire2014_h3">References</h3>
+            <ol>
+                <li>A. Andoni and P. Indyk, "Near-optimal hashing algorithms for approximate nearest neighbor in high dimensions," Comm. ACM 51:1, pp. 117-            122, 2008.</li>
+                <li>A.Z. Broder, "On the resemblance and containment of documents," Proc. Compression and Complexity of Sequences, pp. 21-29, Positano Italy, 1997</li>
+                <li>A.Z. Broder, M. Charikar, A.M. Frieze, and M. Mitzenmacher, "Min-wise independent permutations," ACM Symposium on Theory of Computing, pp. 327-336, 1998.</li>
+                <li>M.S. Charikar, "Similarity estimation techniques from rounding algorithms," ACM Symposium on Theory of Computing, pp. 380-388, 2002.</li>
+                <li>S. Chaudhuri, V. Ganti, and R. Kaushik, "A primitive operator for similarity joins in data cleaning," Proc. Intl. Conf. on Data Engineering, 2006.</li>
+                <li>M. Datar, N. Immorlica, P. Indyk, and V.S. Mirrokni, "Locality-sensitive hashing scheme based on p-stable distributions," Symposium on Computational Geometry pp. 253-262, 2004.</li>
+                <li>A. Gionis, P. Indyk, and R. Motwani, "Similarity search in high dimensions via hashing," Proc. Intl. Conf. on Very Large Databases, pp. 518-529, 1999</li>
+            </ol>
+        </div>
+        
+        <div class="ire2014_resources">
+            <h3 class="ire2014_h3">Resources</h3>
+            <h4>Code Base</h4>
+            <a href="#" class="ire2014_link">Github Repository for Project ABC</a>
+            
+            <h4>Slide Show</h4>
+            <a href="#" class="ire2014_link">Put Slideshare Link</a>
+            
+            <h4>Video</h4>
+            <a href="#" class="ire2014_link">Put Youtube Demo Link</a>
+        </div>
+        
+    </div>
+    
+    </div>
+</body>
+</html>
