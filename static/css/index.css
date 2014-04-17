@@ -3,82 +3,104 @@
   width: 100%;
 }
 
-#nav {
+.header-wrapper { 
+  margin: 0;
+  padding: 0;
   width: 100%;
-  position:static;
-  top:-32px;
 }
 
-@media (min-width: 767px) {
-  .navbar-nav.nav-justified > li{
-    float:none;
-  }
-}
-.navbar-nav {
-  margin: 1px 1px; 
-}  
-
-/* customize nav style */
-.navbar-custom {
-  font-weight:700;
-  text-transform:uppercase;
-  border-width:0;
-}
-.navbar-custom  .navbar-nav>li>a {
-  color: #ddd;
-}
-.navbar-custom  .navbar-nav li>a:hover, .navbar-nav li .open, .navbar-custom .navbar-nav .active a  {
-  background-color: #000;
-}
-.navbar-custom .dropdown-menu{
-  right:0;
-}
-.navbar-custom .navbar-nav>.dropdown>a .caret {
-  border-top-color: #999;
-  border-bottom-color: #999;
+li.home {
+  background-color: #24394e;
 }
 
-.navbar-collapse.in { /*3.0.2 bug workaround*/
-  overflow-y: visible;
+.row nav.navbar {
+  padding-left: 10%;
+  padding-right: 10%;
 }
 
-.navbar-toggle {
-  outline:0;
+.navbar-form #srch-term {
+  width: 100%;
+}
+
+.fixed-header {
+  position: fixed;
+}
+
+.page-wrap {
+  min-height: 100%;
+  /* equal to footer height */
+  
+}
+.page-wrap:after {
+  content: "";
+  display: block;
 }
 
  /* Sticky footer styles
-      -------------------------------------------------- */
+ -------------------------------------------------- */
 
-      html,
-      body {
-        height: 100%;
-        /* The html and body elements cannot have any padding or margin. */
-      }
+ html,
+ body {
+  height: 100%;
+  /* The html and body elements cannot have any padding or margin. */
+}
 
-      /* Wrapper for page content to push down footer */
-      #wrap {
-        min-height: 100%;
-        height: auto !important;
-        height: 100%;
-        /* Negative indent footer by it's height */
-        margin: 0 auto -60px;
-      }
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  /* Negative indent footer by it's height */
+  margin: 0 auto -60px;
+}
 
-      /* Set the fixed height of the footer here */
-      #push,
-      #footer {
-        height: 60px;
-      }
-      #footer {
-        background-color: #34495E;
-      }
+/* Set the fixed height of the footer here */
+#push,
+#footer {
+  height: 60px;
+}
+#footer {
+  background-color: #34495E;
+}
 
-      /* Lastly, apply responsive CSS fixes as necessary */
-      @media (max-width: 767px) {
-        #footer {
-          margin-left: -20px;
-          margin-right: -20px;
-          padding-left: 20px;
-          padding-right: 20px;
-        }
-      }
+/* Lastly, apply responsive CSS fixes as necessary */
+@media (max-width: 767px) {
+  #footer {
+    margin-left: -20px;
+    margin-right: -20px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+
+::-webkit-scrollbar {
+  width: 10px;
+  background-color: rgba(0, 0, 0, 0);
+  -webkit-border-radius: 100px;
+}
+
+::-webkit-scrollbar:hover {
+  background-color: rgba(0, 0, 0, 0.09);
+}
+
+::-webkit-scrollbar-thumb:vertical {
+  background: rgba(0, 0, 0, 0.5);
+  -webkit-border-radius: 100px;
+  background-clip: padding-box;
+  border: 2px solid rgba(0, 0, 0, 0);
+  min-height: 10px;
+}
+
+::-webkit-scrollbar-thumb:vertical:active {
+  background: rgba(0, 0, 0, 0.61);
+  -webkit-border-radius: 100px;
+}
+
+
+
+.categories{
+  height: 400px;
+  overflow: scroll;
+  overflow-x:hidden;
+}

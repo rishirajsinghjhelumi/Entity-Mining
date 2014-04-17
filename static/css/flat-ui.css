@@ -3845,7 +3845,7 @@ fieldset[disabled] .twitter-typeahead .tt-hint {
 .todo-search:before {
   position: absolute;
   font-family: 'Flat-UI-Icons';
-  content: "\e01c";
+  
   font-size: 16px;
   line-height: 17px;
   display: inline-block;
