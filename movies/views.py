@@ -40,7 +40,6 @@ def moviesOpeningThisWeek(limit):
 
 	return ResponseJSON(rt.getThisWeekOpeningMovies(limit = limit))
 
-@ResponseJSON
 @app.route("/movies/in_theatre/<int:limit>/<int:page>",methods=['GET'])
 def moviesInTheatre(limit, page):
 
