@@ -51,7 +51,7 @@
             <ul class="categories">
 
               <li class="" >
-              <a href = "javascript:topRatedMovies()">
+              <a href = 'javascript:tmdbMovies("/movies/top_rated/10/0","top_rated")'>
                 <div class="todo-icon fui-video"></div>
                 <div class="todo-content">
                   <h4 class="todo-name">
@@ -63,7 +63,7 @@
               </li>
 
               <li class="" >
-              <a href = "/movies/now_playing/10/0">
+              <a href = 'javascript:tmdbMovies("/movies/now_playing/10/0","now_playing")'>
                 <div class="todo-icon fui-video"></div>
                 <div class="todo-content">
                   <h4 class="todo-name">
@@ -75,7 +75,7 @@
               </li>
 
               <li class="" >
-              <a href = "/movies/most_popular/10/0">
+              <a href = 'javascript:tmdbMovies("/movies/most_popular/10/0","most_popular")'>
                 <div class="todo-icon fui-video"></div>
                 <div class="todo-content">
                   <h4 class="todo-name">
@@ -87,7 +87,7 @@
               </li>
 
               <li class="" >
-              <a href = "/movies/upcoming/10/0">
+              <a href = 'javascript:tmdbMovies("/movies/upcoming/10/0","upcoming")'>
                 <div class="todo-icon fui-video"></div>
                 <div class="todo-content">
                   <h4 class="todo-name">
@@ -208,16 +208,18 @@
 
       var movies = null;
 
-      var topRatedMovies = function(){
+      var tmdbMovies = function(url,type){
 
         NProgress.start();
 
+        console.log(type);
+
         $.ajax({
-          url: "/movies/top_rated/10/0",
+          url: url,
           type: 'GET',
           async:false,
         }).done(function(data) {
-          movies = data['top_rated'];
+          movies = data[type];
         },"json");
 
         updateUI();
@@ -237,7 +239,7 @@
 
         var  html = '', limitItem = movies.length;
         for (var i = 0; i < limitItem; ++i) {
-          html += temp.replace("{title}", movies[i].title).replace("{release}", movies[i].release_date).replace("{url}", movies[i].image);
+          html += temp.replace("{title}", movies[i].title).replace("{release}", movies[i].release_date).replace("{url}", movies[i].image || "/static/img/holder.png");
         }
         $("#freewall").html(html);
         
