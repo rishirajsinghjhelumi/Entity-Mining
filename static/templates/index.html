@@ -99,7 +99,7 @@
               </li>
 
               <li class="" >
-              <a href = "/movies/top_box_office/10">
+              <a href = 'javascript:rtMovies("/movies/top_box_office/10","top_box_office")'>
                 <div class="todo-icon fui-video"></div>
                 <div class="todo-content">
                   <h4 class="todo-name">
@@ -111,7 +111,7 @@
               </li>
 
               <li class="" >
-              <a href = "/movies/opening_this_week/10">
+              <a href = 'javascript:rtMovies("/movies/opening_this_week/10","opening")'>
                 <div class="todo-icon fui-video"></div>
                 <div class="todo-content">
                   <h4 class="todo-name">
@@ -124,7 +124,7 @@
 
 
               <li class="" >
-              <a href = "/movies/in_theatre/10/1">
+              <a href = 'javascript:rtMovies("/movies/in_theatre/10/1","in_theaters")'>
                 <div class="todo-icon fui-video"></div>
                 <div class="todo-content">
                   <h4 class="todo-name">
@@ -137,7 +137,7 @@
 
 
               <li class="" >
-              <a href = "/dvd/top_rental/10">
+              <a href = 'javascript:rtMovies("/dvd/top_rental/10","top_rentals")'>
                 <div class="todo-icon fui-video"></div>
                 <div class="todo-content">
                   <h4 class="todo-name">
@@ -150,7 +150,7 @@
 
 
               <li class="" >
-              <a href = "/dvd/current_released/10/1">
+              <a href = 'javascript:rtMovies("/dvd/current_released/10/1","current_releases")'>
                 <div class="todo-icon fui-video"></div>
                 <div class="todo-content">
                   <h4 class="todo-name">
@@ -162,7 +162,7 @@
               </li>
 
               <li class="" >
-              <a href = "/dvd/new_released/10/1">
+              <a href = 'javascript:rtMovies("/dvd/new_released/10/1","new_releases")'>
                 <div class="todo-icon fui-video"></div>
                 <div class="todo-content">
                   <h4 class="todo-name">
@@ -174,7 +174,7 @@
               </li>
 
               <li class="" >
-              <a href = "/dvd/upcoming/10/1">
+              <a href = 'javascript:rtMovies("/dvd/upcoming/10/1","upcoming")'>
                 <div class="todo-icon fui-video"></div>
                 <div class="todo-content">
                   <h4 class="todo-name">
@@ -222,14 +222,6 @@
           movies = data[type];
         },"json");
 
-        updateUI();
-
-        NProgress.done();
-
-      };
-
-      var updateUI = function(){
-
         var temp = '<div class="brick">'
         + '<img src="{url}" width="100%">'
         + '<div class="info">'
@@ -242,6 +234,49 @@
           html += temp.replace("{title}", movies[i].title).replace("{release}", movies[i].release_date).replace("{url}", movies[i].image || "/static/img/holder.png");
         }
         $("#freewall").html(html);
+
+        updateUI();
+
+        NProgress.done();
+
+      };
+
+      var rtMovies = function(url,type){
+
+        NProgress.start();
+
+        console.log(type);
+
+        $.ajax({
+          url: url,
+          type: 'GET',
+          async:false,
+        }).done(function(data) {
+          movies = data[type];
+        },"json");
+
+        var temp = '<div class="brick">'
+        + '<img src="{url}" width="100%">'
+        + '<div class="info">'
+        + '<h6>{release}</h6>'
+        + '{title}'
+        + '</div></div>';
+
+        var  html = '', limitItem = movies.length;
+        for (var i = 0; i < limitItem; ++i) {
+          var release_date = movies[i].release_dates.theater || movies[i].release_dates.dvd || "Not Known";
+          var photo = movies[i].posters.original;
+          html += temp.replace("{title}", movies[i].title).replace("{release}", release_date).replace("{url}", photo || "/static/img/holder.png");
+        }
+        $("#freewall").html(html);
+
+        updateUI();
+
+        NProgress.done();
+
+      };
+
+      var updateUI = function(){
         
         var wall = new freewall("#freewall");
         wall.reset({
