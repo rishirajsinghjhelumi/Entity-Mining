@@ -276,6 +276,10 @@
 
       };
 
+      var onSearch = function(query){
+        rtMovies("/movies/rt/search/{query}/10/1".replace('query',encodeURI(query)),"movies");
+      };
+
       var updateUI = function(){
         
         var wall = new freewall("#freewall");
@@ -289,18 +293,18 @@
           }
         });
         
-        var images = wall.container.find('.brick');
-        var length = images.length;
-        images.css({visibility: 'hidden'});
-        images.find('img').load(function() {
-          -- length;
-          if (!length) {
-            setTimeout(function() {
-              images.css({visibility: 'visible'});
-              wall.fitWidth();
-            }, 505);
-          }
-        });
+      var images = wall.container.find('.brick');
+      var length = images.length;
+      images.css({visibility: 'hidden'});
+      images.find('img').load(function() {
+        -- length;
+        if (!length) {
+          setTimeout(function() {
+            images.css({visibility: 'visible'});
+            wall.fitWidth();
+          }, 100);
+        }
+      });
       };
 
     </script>
