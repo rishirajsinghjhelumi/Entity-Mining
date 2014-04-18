@@ -276,9 +276,17 @@
 
       };
 
-      var onSearch = function(query){
+      var search = function(query){
         rtMovies("/movies/rt/search/{query}/10/1".replace('query',encodeURI(query)),"movies");
       };
+
+      $('#search-form').submit(function () {
+        NProgress.start();
+        search($( "#srch-term" ).val());
+        $( "#srch-term" ).val('');
+        NProgress.done();
+        return false;
+      });
 
       var updateUI = function(){
         
