@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -14,12 +14,25 @@
 
     <link rel="shortcut icon" href="static/img/favicon.ico">
 
+    <!-- Load JS here for greater good =============================-->
+    <script src="static/js/jquery-1.8.3.min.js"></script>
+    <script src="static/js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="static/js/jquery.ui.touch-punch.min.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+    <script src="static/js/bootstrap-select.js"></script>
+    <script src="static/js/bootstrap-switch.js"></script>
+    <script src="static/js/flatui-checkbox.js"></script>
+    <script src="static/js/flatui-radio.js"></script>
+    <script src="static/js/jquery.tagsinput.js"></script>
+    <script src="static/js/jquery.placeholder.js"></script>
+    <script src="static/js/freewall.js"></script>
+
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
     <!--[if lt IE 9]>
       <script src="js/html5shiv.js"></script>
       <script src="js/respond.min.js"></script>
     <![endif]-->
-
+    
   </head>
   <body>
   <div id="wrap">
@@ -175,6 +188,9 @@
         </div>
 
         <div class="col-xs-9">
+        Top Rated Movies
+          <div id="freewall" class="free-wall">
+          </div>
         </div>
             
 
@@ -186,16 +202,53 @@
 </div>
     {% include 'footer.html' %}
 
-    <!-- Load JS here for greater good =============================-->
-    <script src="static/js/jquery-1.8.3.min.js"></script>
-    <script src="static/js/jquery-ui-1.10.3.custom.min.js"></script>
-    <script src="static/js/jquery.ui.touch-punch.min.js"></script>
-    <script src="static/js/bootstrap.min.js"></script>
-    <script src="static/js/bootstrap-select.js"></script>
-    <script src="static/js/bootstrap-switch.js"></script>
-    <script src="static/js/flatui-checkbox.js"></script>
-    <script src="static/js/flatui-radio.js"></script>
-    <script src="static/js/jquery.tagsinput.js"></script>
-    <script src="static/js/jquery.placeholder.js"></script>
-  </body>
-</html>
+    <script type="text/javascript">
+
+      var movies = null;
+
+      $.ajax({
+        url: "/movies/top_rated/10/0",
+        type: 'GET',
+        async:false,
+      }).done(function(data) {
+        movies = data['top_rated'];
+      },"json");
+
+
+      var temp = '<div class="brick">'
+             + '<img src="{url}" width="100%">'
+             + '<div class="info">'
+             + '<h6>{release}</h6>'
+             + '{title}'
+             + '</div></div>';
+
+      var  html = '', limitItem = movies.length;
+      for (var i = 0; i < limitItem; ++i) {
+        html += temp.replace("{title}", movies[i].title).replace("{release}", movies[i].release_date).replace("{url}", movies[i].image);
+      }
+      $("#freewall").html(html);
+      
+      var wall = new freewall("#freewall");
+      wall.reset({
+        selector: '.brick',
+        animate: true,
+        cellW: 200,
+        cellH: 'auto',
+        onResize: function() {
+          wall.fitWidth();
+        }
+      });
+      
+      var images = wall.container.find('.brick');
+      var length = images.length;
+      images.css({visibility: 'hidden'});
+      images.find('img').load(function() {
+        -- length;
+        if (!length) {
+          setTimeout(function() {
+            images.css({visibility: 'visible'});
+            wall.fitWidth();
+          }, 505);
+        }
+      });
+    </script>
