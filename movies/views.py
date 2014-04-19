@@ -1,12 +1,14 @@
 from app import app
 from flask import request
 from flask import jsonify
+from flask import render_template
 
 from movies import tmDB
 from movies import imDB
 from movies import omDB
 from movies import rt
 from tmdb3 import Person, Movie, List, Studio
+from tree import getRTTree
 
 from util import ResponseJSON
 
@@ -83,4 +85,10 @@ def moviesRTSearch(query, limit, page):
 @app.route("/movies/rt/info/<int:movie_id>",methods=['GET'])
 def movieRTQuery(movie_id):
 
-	return ResponseJSON(rt.getMovieInfo(movie_id))
+	return ResponseJSON(getRTTree(movie_id))
+	# return ResponseJSON(rt.getMovieInfo(movie_id))
+
+@app.route("/movies/rt/display/<int:movie_id>",methods=['GET'])
+def movieRTDisplay(movie_id):
+
+	return render_template('movie.html', movieId = movie_id)
