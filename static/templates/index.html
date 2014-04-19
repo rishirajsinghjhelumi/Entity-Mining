@@ -27,6 +27,7 @@
     <script src="static/js/jquery.tagsinput.js"></script>
     <script src="static/js/jquery.placeholder.js"></script>
     <script src="static/js/freewall.js"></script>
+    <script src="static/js/spin.min.js"></script>
     <script src="static/nprogress/nprogress.js"></script>
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
@@ -190,6 +191,7 @@
         </div>
 
         <div class="col-xs-9">
+        <div id="spin-me"></div>
           <div id="freewall" class="free-wall">
             <h1>Please Select a Category</h1>
           </div>
@@ -223,15 +225,18 @@
         },"json");
 
         var temp = '<div class="brick">'
+        + '<a href="{movie_url}">'
         + '<img src="{url}" width="100%">'
         + '<div class="info">'
         + '<h6>{release}</h6>'
         + '{title}'
-        + '</div></div>';
+        + '</div>'
+        + '</a>'
+        + '</div>';
 
         var  html = '', limitItem = movies.length;
         for (var i = 0; i < limitItem; ++i) {
-          html += temp.replace("{title}", movies[i].title).replace("{release}", movies[i].release_date).replace("{url}", movies[i].image || "/static/img/holder.png");
+          html += temp.replace("{title}", movies[i].title).replace("{release}", movies[i].release_date).replace("{url}", movies[i].image || "/static/img/holder.png").replace("{movie_url}","/movies/tmdb/info/" + movies[i].id_tmdb);
         }
         $("#freewall").html(html);
 
@@ -256,17 +261,20 @@
         },"json");
 
         var temp = '<div class="brick">'
+        + '<a href="{movie_url}">'
         + '<img src="{url}" width="100%">'
         + '<div class="info">'
         + '<h6>{release}</h6>'
         + '{title}'
-        + '</div></div>';
+        + '</div>'
+        + '</a>'
+        + '</div>';
 
         var  html = '', limitItem = movies.length;
         for (var i = 0; i < limitItem; ++i) {
           var release_date = movies[i].release_dates.theater || movies[i].release_dates.dvd || "Not Known";
           var photo = movies[i].posters.original;
-          html += temp.replace("{title}", movies[i].title).replace("{release}", release_date).replace("{url}", photo || "/static/img/holder.png");
+          html += temp.replace("{title}", movies[i].title).replace("{release}", release_date).replace("{url}", photo || "/static/img/holder.png").replace("{movie_url}","/movies/rt/info/" + movies[i].id);;
         }
         $("#freewall").html(html);
 
