@@ -101,7 +101,8 @@ li.home {
 
 .categories{
   
-  
+  height: 400px;
+  overflow: scroll;
   overflow-x:hidden;
 }
 
