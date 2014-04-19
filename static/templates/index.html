@@ -191,8 +191,8 @@
         </div>
 
         <div class="col-xs-9">
-        <div id="spin-me"></div>
-          <div id="freewall" class="free-wall">
+        <span id="spin-me"  style="position: absolute;display: block;top: 20%;left: 50%;"></span>
+          <div id="freewall" class="free-wall"  >
             <h1>Please Select a Category</h1>
           </div>
         </div>
@@ -208,11 +208,33 @@
 
     <script type="text/javascript">
 
+      var opts = {
+        lines: 17, // The number of lines to draw
+        length: 23, // The length of each line
+        width: 14, // The line thickness
+        radius: 33, // The radius of the inner circle
+        corners: 0.6, // Corner roundness (0..1)
+        rotate: 90, // The rotation offset
+        direction: 1, // 1: clockwise, -1: counterclockwise
+        color: '#000', // #rgb or #rrggbb or array of colors
+        speed: 1.6, // Rounds per second
+        trail: 50, // Afterglow percentage
+        shadow: true, // Whether to render a shadow
+        hwaccel: true, // Whether to use hardware acceleration
+        className: 'spinner', // The CSS class to assign to the spinner
+        zIndex: 2e9, // The z-index (defaults to 2000000000)
+        top: 'auto', // Top position relative to parent in px
+        left: 'auto' // Left position relative to parent in px
+      };
+      var target = document.getElementById('spin-me');
+      var spinner = new Spinner(opts);
+
       var movies = null;
 
       var tmdbMovies = function(url,type){
 
         NProgress.start();
+        spinner.spin(target);
 
         console.log(type);
 
@@ -249,6 +271,7 @@
       var rtMovies = function(url,type){
 
         NProgress.start();
+        spinner.spin(target);
 
         console.log(type);
 
@@ -311,14 +334,11 @@
         
       var images = wall.container.find('.brick');
       var length = images.length;
-      images.css({visibility: 'hidden'});
       images.find('img').load(function() {
         -- length;
+        wall.fitWidth();
         if (!length) {
-          setTimeout(function() {
-            images.css({visibility: 'visible'});
-            wall.fitWidth();
-          }, 100);
+            spinner.stop();
         }
       });
       };
