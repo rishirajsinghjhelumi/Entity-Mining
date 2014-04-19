@@ -91,4 +91,4 @@ def movieRTQuery(movie_id):
 @app.route("/movies/rt/display/<int:movie_id>",methods=['GET'])
 def movieRTDisplay(movie_id):
 
-	return render_template('movie.html', movieId = movie_id)
+	return render_template('movie.html', movieId = movie_id, image = rt.rt.info(movie_id)['posters']['original'])
